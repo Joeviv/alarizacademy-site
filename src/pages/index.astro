@@ -1,16 +1,321 @@
 ---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "Home";
 
+const services = [
+  { 
+    name: "Personalized Tutoring", 
+    href: "/services/personalized-tutoring", 
+    imgSrc: "/images/services/personalizedTutoring.jpg", 
+    altText: "Students receiving personalized tutoring" 
+  },
+  { 
+    name: "Language Learning", 
+    href: "/services/language-learning", 
+    imgSrc: "/images/services/languageLearning.jpg", 
+    altText: "Language learning class" 
+  },
+  { 
+    name: "Academic Enrichment", 
+    href: "/services/academic-enrichment", 
+    imgSrc: "/images/services/academicEnrichment.jpg", 
+    altText: "Students engaged in academic enrichment" 
+  },
+  { 
+    name: "Skill Development", 
+    href: "/services/skill-development", 
+    imgSrc: "/images/services/skillEnrichment.jpg",
+    altText: "Developing new skills" 
+  },
+  { 
+    name: "Homeschooling Support", 
+    href: "/services/homeschooling-support", 
+    imgSrc: "/images/services/homeschoolingSupport.jpg", 
+    altText: "Homeschooling support environment" 
+  },
+  { 
+    name: "Online & In-Person",
+    href: "/services/online-inperson-instruction", 
+    imgSrc: "/images/services/inPersonSupport.jpg",
+    altText: "Online and in-person instruction" 
+  },
+  { 
+    name: "Group Workshops", 
+    href: "/services/group-workshops", 
+    imgSrc: "/images/services/groupWorkshop.jpg", 
+    altText: "Students in a group workshop" 
+  },
+  { 
+    name: "Customized Lesson Plans", 
+    href: "/services/customized-lesson-plans", 
+    imgSrc: "/images/services/customizedLessonPlans.jpg", 
+    altText: "Customized lesson plan example" 
+  }
+];
+
+// ENSURE THIS PATH IS CORRECT and the image hero-background.jpg is in public/images/home/
+const heroBackgroundImageUrl = "/images/home/hero-background.jpg"; 
 ---
+<BaseLayout title={pageTitle}>
+  
+  <section 
+    id="modern-hero" 
+    style={`background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('${heroBackgroundImageUrl}');`}
+  >
+    <div class="hero-content-box"> {/* Changed class name for clarity */}
+      <h1 class="hero-title animate-fade-in-up">Welcome to Alariz Academy!</h1>
+      <p class="hero-subtitle animate-fade-in-up delay-1">Your journey to fun, engaging, and effective learning starts here in Miami.</p>
+      <a href="#services-mosaic" class="cta-button hero-cta animate-fade-in-up delay-2">Explore Our Programs</a>
+    </div>
+  </section>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Bienvenido a Alariz Academy</h1>
-	</body>
-</html>
+  <section id="services-mosaic" class="home-section">
+    <h2 class="section-title text-center">Unlock Your Potential</h2>
+    <p class="section-subtitle text-center">Discover a world of learning opportunities tailored just for you and your family. Click any service to learn more!</p>
+    <div class="mosaic-grid">
+      {services.map(service => (
+        <a href={service.href} class="mosaic-item" aria-label={`Learn more about ${service.name}`}>
+          <img src={service.imgSrc} alt={service.altText} loading="lazy" />
+          <div class="mosaic-item-overlay">
+            <h4>{service.name}</h4>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section id="usp-highlight" class="home-section content-section bg-white-card text-center">
+    <h3 class="highlight-title">Education Reimagined</h3>
+    <p class="highlight-text">We blend proven teaching methods with modern technology to create learning experiences that are not just educational, but also inspiring and fun for all ages. Based right here in Miami, Florida!</p>
+    <a href="/contact" class="cta-button secondary-cta">Connect With Us</a>
+  </section>
+
+
+  <style>
+    /* General Section Styling */
+    .home-section {
+      padding: 3rem 1.5rem; 
+      margin-bottom: 0; 
+    }
+     #services-mosaic {
+        padding-top: 4rem; 
+        padding-bottom: 4rem;
+        background-color: var(--bg-light); 
+    }
+    .content-section {
+      padding: 2.5rem;
+    }
+    .bg-white-card {
+        background-color: var(--bg-white);
+        border-radius: 16px; 
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        max-width: 800px; 
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem 1.5rem; 
+    }
+    .section-title {
+      font-size: 2.4rem; 
+      color: var(--primary-blue);
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    .section-title.text-center { text-align: center; }
+    .section-subtitle {
+        font-size: 1.15rem;
+        color: var(--text-light);
+        max-width: 650px;
+        margin: 0 auto 2.5rem auto;
+        line-height: 1.7;
+    }
+    .section-subtitle.text-center { text-align: center; }
+    .text-center { text-align: center; }
+
+    /* New Modern Hero Section Styles */
+    #modern-hero {
+      min-height: 60vh; /* Adjust height as desired */
+      display: flex; /* Enables flexbox for centering .hero-content-box */
+      justify-content: center; /* Centers .hero-content-box horizontally */
+      align-items: center; /* Centers .hero-content-box vertically */
+      text-align: center; /* Centers text within .hero-content-box */
+      padding: 2rem 1.5rem; 
+      color: white; /* Default text color for hero, can be overridden */
+      background-size: cover; /* Ensures the background image covers the section */
+      background-position: center; /* Centers the background image */
+      background-repeat: no-repeat;
+      position: relative; /* For potential absolute positioning of elements later */
+    }
+
+    .hero-content-box { /* This is the "modern box" for text */
+        background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent white */
+        backdrop-filter: blur(10px); /* Frosted glass effect */
+        -webkit-backdrop-filter: blur(10px); /* For Safari */
+        padding: 2.5rem 3rem; /* Generous padding inside the box */
+        border-radius: 12px; /* Rounded corners */
+        max-width: 700px; /* Max width of the box */
+        width: 90%; /* Responsive width */
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2); /* Subtle shadow for depth */
+        border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle border */
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 3.8rem); 
+      font-weight: 700; 
+      margin-bottom: 1rem; 
+      color: #ffffff; /* Ensure text is white, adjust if box bg is dark */
+      text-shadow: 0px 1px 3px rgba(0,0,0,0.2); /* Softer shadow, may not be needed with box */
+    }
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 3vw, 1.3rem); 
+      margin-bottom: 2rem; 
+      font-weight: 400;
+      max-width: 550px; 
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6; 
+      color: #f0f0f0; /* Slightly off-white for subtitle */
+      text-shadow: 0px 1px 2px rgba(0,0,0,0.15); 
+    }
+    .cta-button { 
+        display: inline-block;
+        background-color: var(--secondary-teal);
+        color: var(--bg-white) !important; 
+        padding: 0.9rem 2.2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        border: none;
+    }
+    .cta-button:hover, .cta-button:focus {
+        background-color: #008a7d;
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .hero-cta { 
+        font-size: 1.15rem; 
+        padding: 1rem 2.5rem;
+    }
+    .secondary-cta { 
+        background-color: var(--primary-blue);
+        font-size: 1rem;
+        padding: 0.8rem 2rem;
+    }
+    .secondary-cta:hover, .secondary-cta:focus {
+        background-color: #3a7bc8; 
+    }
+
+    /* Services Mosaic Styles */
+    #services-mosaic .section-title { 
+        font-size: clamp(2rem, 5vw, 2.3rem);
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    #services-mosaic .section-subtitle { 
+        font-size: clamp(1.05rem, 2.5vw, 1.15rem);
+        max-width: 700px;
+        margin-bottom: 3rem;
+    }
+    .mosaic-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; 
+    }
+    .mosaic-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(40,50,60,0.08); 
+      text-decoration: none;
+      color: white;
+      display: block;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .mosaic-item:hover,
+    .mosaic-item:focus-within {
+      transform: translateY(-8px) scale(1.03); 
+      box-shadow: 0 12px 28px rgba(40,50,60,0.12);
+    }
+    .mosaic-item img {
+      display: block;
+      width: 100%;
+      height: 190px; 
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .mosaic-item:hover img,
+    .mosaic-item:focus-within img {
+      transform: scale(1.12);
+    }
+    .mosaic-item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0) 100%);
+      padding: 1.2rem 1rem;
+      text-align: center;
+    }
+    .mosaic-item-overlay h4 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* USP Highlight Section */
+    #usp-highlight {
+        padding-top: 3rem; 
+        padding-bottom: 4rem;
+    }
+    .highlight-title {
+        font-size: 1.8rem;
+        color: var(--secondary-teal); 
+        margin-bottom: 1rem;
+    }
+    .highlight-text {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        max-width: 600px;
+        margin: 0 auto 1.5rem auto;
+    }
+
+    /* Animation utilities */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.3s; }
+    .delay-2 { animation-delay: 0.6s; }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) { 
+      .home-section { padding: 2.5rem 1rem; } 
+      .bg-white-card { padding: 1.5rem; }
+      .mosaic-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+      .mosaic-item img { height: 180px; }
+    }
+    @media (max-width: 767px) { 
+      .home-section { padding: 2rem 1rem; }
+      #modern-hero { min-height: 55vh; padding: 1.5rem 1rem; } /* Adjusted min-height for smaller screens */
+      .hero-content-box { padding: 2rem 1.5rem; width: 95%; } /* Adjust box padding on mobile */
+      .hero-title { font-size: clamp(2.0rem, 6vw, 3.0rem); }
+      .hero-subtitle { font-size: clamp(0.95rem, 3vw, 1.1rem); }
+      .mosaic-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .mosaic-item img { height: 190px; }
+      .section-title { font-size: clamp(1.8rem, 4.5vw, 2rem); }
+      .section-subtitle { font-size: clamp(1rem, 2.3vw, 1.1rem); }
+    }
+    @media (max-width: 576px) { 
+      #modern-hero { min-height: 50vh; }
+       .hero-content-box { padding: 1.5rem 1rem; }
+      .hero-title { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+      .mosaic-grid { grid-template-columns: 1fr; }
+      .mosaic-item img { height: 210px; }
+    }
+  </style>
+</BaseLayout>

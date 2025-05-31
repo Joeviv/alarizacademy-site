@@ -1,0 +1,210 @@
+---
+// src/pages/contact.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "Contact Us & About Us";
+
+// IMPORTANT: Replace 'YOUR_FORMSPREE_ENDPOINT_HERE' with your actual Formspree endpoint URL later
+const formspreeEndpoint = "https://formspree.io/f/manjwknl"; // Example: "https://formspree.io/f/your_unique_code"
+
+// Placeholder for an "About Us" image, if you want one here.
+// Place it in public/images/home/ or public/images/contact/
+const aboutUsImage = "/images/home/who-we-are-team.jpg"; // Example, reuse or get a new one
+---
+<BaseLayout title={pageTitle}>
+  <div class="contact-page-container">
+    
+    <section id="contact-intro" class="page-section text-center">
+      <h1 class="page-main-title">Get in Touch & Learn More About Us</h1>
+      <p class="page-subtitle">We'd love to hear from you! Reach out with any questions or to start your learning adventure.</p>
+    </section>
+
+    <div class="contact-layout-grid">
+      <!-- About Us Section -->
+      <section id="about-us-content" class="page-section content-card">
+        <h2 class="section-title-alt">Who We Are</h2>
+        <!-- If you have an 'About Us' image, uncomment and adjust: -->
+        <!-- <img src={aboutUsImage} alt="The Alariz Academy Team" class="content-image-contact"/> -->
+        <p>Alariz Academy is a dynamic educational company dedicated to providing high-quality learning experiences for both children and adults. Our mission is to make education engaging, accessible, and tailored to individual needs through a blend of online and in-person instruction.</p>
+        <p>We specialize in personalized tutoring, language learning, academic enrichment, and skill development, ensuring that every student—whether a child building foundational skills or an adult seeking professional growth—receives the support they need to succeed.</p>
+        <p>Our team of passionate and experienced educators uses interactive teaching methods, modern technology, and customized lesson plans to create an engaging learning environment. Whether through virtual classes, one-on-one tutoring, group workshops, or hands-on activities, we empower learners of all ages to achieve their goals.</p>
+        <p><strong>At Alariz Academy, we believe education is a lifelong journey, and we're here to guide you every step of the way!</strong></p>
+        <p>Based in sunny Miami, Florida, we are proud to serve our vibrant community.</p>
+      </section>
+
+      <!-- Contact Form Section -->
+      <section id="contact-form-section" class="page-section content-card">
+        <h2 class="section-title-alt">Send Us a Message</h2>
+        <form action={formspreeEndpoint} method="POST" class="contact-form">
+          <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+
+          <button type="submit" class="cta-button form-submit-button">Send Message</button>
+        </form>
+         <div class="contact-details-alt">
+            <p><strong>Or reach us directly:</strong></p>
+            <p><strong>Email:</strong> <a href="mailto:dianarocio@me.com">dianarocio@me.com</a></p>
+            <p><strong>Location:</strong> Miami, Florida, USA</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <style>
+    .contact-page-container {
+      max-width: 1200px; /* Allow wider content for two columns */
+      margin: 0 auto;
+      padding: 1rem; /* Padding for the overall container on small screens */
+    }
+    .page-section {
+      margin-bottom: 3rem;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .page-main-title {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      color: var(--primary-blue);
+      margin-bottom: 0.75rem;
+    }
+    .page-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+      color: var(--text-light);
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+    }
+
+    .contact-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* Single column by default */
+      gap: 2.5rem; /* Increased gap */
+    }
+
+    @media (min-width: 992px) { /* Two columns for larger screens */
+      .contact-layout-grid {
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+      }
+      #about-us-content {
+        order: 1; /* About Us on the left */
+      }
+      #contact-form-section {
+        order: 2; /* Form on the right */
+      }
+    }
+    
+    .content-card {
+      background-color: var(--bg-white);
+      padding: 2.5rem 2rem; /* More padding */
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+    }
+
+    .section-title-alt { /* Slightly different title for cards */
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      color: var(--primary-blue);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--secondary-teal); /* Accent border */
+      display: inline-block; /* So border only spans text */
+    }
+    
+    #about-us-content p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+    }
+    #about-us-content strong {
+      color: var(--primary-blue);
+    }
+    .content-image-contact { /* Style for a potential 'About Us' image */
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Contact Form Styles */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem; 
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      font-weight: 600; /* Bolder labels */
+      margin-bottom: 0.5rem; 
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group textarea {
+      padding: 0.8rem 1rem; /* Increased padding */
+      border: 1px solid #d0d7de; /* Softer border */
+      border-radius: 8px; /* More rounded */
+      font-size: 1rem;
+      font-family: var(--font-family-sans-serif);
+      background-color: #f6f8fa; /* Very light input background */
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-blue); 
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); /* Focus ring */
+      background-color: var(--bg-white);
+    }
+    .form-group textarea {
+      resize: vertical; 
+      min-height: 120px;
+    }
+    .form-submit-button { /* Inherits from .cta-button */
+      align-self: flex-start; 
+      margin-top: 0.5rem;
+      font-size: 1.05rem !important; /* ensure size */
+    }
+    
+    .contact-details-alt {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-light);
+    }
+    .contact-details-alt p {
+        font-size: 0.95rem;
+        color: var(--text-light);
+        margin-bottom: 0.5rem;
+    }
+    .contact-details-alt a {
+        color: var(--secondary-teal);
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .contact-details-alt a:hover {
+        text-decoration: underline;
+    }
+
+  </style>
+</BaseLayout>
