@@ -3,12 +3,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = "Contact Us & About Us";
 
-// IMPORTANT: Replace 'YOUR_FORMSPREE_ENDPOINT_HERE' with your actual Formspree endpoint URL later
-const formspreeEndpoint = "https://formspree.io/f/manjwknl"; // Example: "https://formspree.io/f/your_unique_code"
+// Your Formspree endpoint is now hardcoded here from our last session.
+const formspreeEndpoint = "https://formspree.io/f/manjwknl";
 
-// Placeholder for an "About Us" image, if you want one here.
-// Place it in public/images/home/ or public/images/contact/
-const aboutUsImage = "/images/home/who-we-are-team.jpg"; // Example, reuse or get a new one
+// New image for the "About Us" section.
+const aboutUsImage = "/images/contact/about-us-collage.jpg";
 ---
 <BaseLayout title={pageTitle}>
   <div class="contact-page-container">
@@ -22,13 +21,23 @@ const aboutUsImage = "/images/home/who-we-are-team.jpg"; // Example, reuse or ge
       <!-- About Us Section -->
       <section id="about-us-content" class="page-section content-card">
         <h2 class="section-title-alt">Who We Are</h2>
-        <!-- If you have an 'About Us' image, uncomment and adjust: -->
-        <!-- <img src={aboutUsImage} alt="The Alariz Academy Team" class="content-image-contact"/> -->
-        <p>Alariz Academy is a dynamic educational company dedicated to providing high-quality learning experiences for both children and adults. Our mission is to make education engaging, accessible, and tailored to individual needs through a blend of online and in-person instruction.</p>
-        <p>We specialize in personalized tutoring, language learning, academic enrichment, and skill development, ensuring that every student—whether a child building foundational skills or an adult seeking professional growth—receives the support they need to succeed.</p>
-        <p>Our team of passionate and experienced educators uses interactive teaching methods, modern technology, and customized lesson plans to create an engaging learning environment. Whether through virtual classes, one-on-one tutoring, group workshops, or hands-on activities, we empower learners of all ages to achieve their goals.</p>
-        <p><strong>At Alariz Academy, we believe education is a lifelong journey, and we're here to guide you every step of the way!</strong></p>
-        <p>Based in sunny Miami, Florida, we are proud to serve our vibrant community.</p>
+        
+        <!-- New image added below -->
+        <img src={aboutUsImage} alt="A collage of Alariz Academy's diverse learning activities" class="content-image-contact"/>
+        
+        <!-- New text content below -->
+        <p>At Alariz Academy, we believe in the power of learning to transform lives and build stronger communities. Through our engaging online platform, we are proud to be your global hub for language acquisition, cultural enrichment, and holistic well-being.</p>
+        <p>Our passion lies in creating a welcoming virtual space where everyone feels supported, whether they're a young learner discovering Spanish, an adult building confidence in English, or someone pursuing the dream of U.S. citizenship. We proudly offer:</p>
+        
+        <ul class="services-list">
+            <li><strong>Engaging Spanish Classes:</strong> From fun, structured programs for children to relaxed vocabulary builders, we spark a love for the Spanish language and culture in every student.</li>
+            <li><strong>Empowering English Classes:</strong> Designed specifically for our vibrant Hispanic community, these classes help you gain fluency for daily life, work, and future opportunities.</li>
+            <li><strong>Essential U.S. Citizenship Preparation:</strong> We provide comprehensive support to help you confidently navigate the path to becoming a U.S. citizen.</li>
+            <li><strong>Mindful Yoga Practice:</strong> Balance your learning journey with invigorating and calming yoga sessions that nurture both body and mind.</li>
+        </ul>
+
+        <p>Join our diverse and supportive online community, where learning is an adventure and every step forward is celebrated. We're more than just classes; we're a place to connect, achieve, and thrive, wherever you are in the world.</p>
+
       </section>
 
       <!-- Contact Form Section -->
@@ -130,13 +139,36 @@ const aboutUsImage = "/images/home/who-we-are-team.jpg"; // Example, reuse or ge
       margin-bottom: 1rem;
       color: var(--text-dark);
     }
+    
+    .services-list {
+        list-style-type: none; /* Removes default bullets */
+        padding-left: 0;
+        margin: 1.5rem 0;
+    }
+    .services-list li {
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    /* Creates a custom bullet for the list */
+    .services-list li::before {
+        content: '✔'; /* You can use other symbols like '✓' or '•' */
+        position: absolute;
+        left: 0;
+        top: 2px;
+        color: var(--secondary-teal);
+        font-weight: bold;
+    }
+    
     #about-us-content strong {
       color: var(--primary-blue);
     }
-    .content-image-contact { /* Style for a potential 'About Us' image */
+    .content-image-contact {
         width: 100%;
-        max-height: 300px;
-        object-fit: cover;
+        max-height: 400px; /* Increased height a bit */
+        object-fit: cover; /* This will crop the image to fit the container */
         border-radius: 8px;
         margin-bottom: 1.5rem;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
