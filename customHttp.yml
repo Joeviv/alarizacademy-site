@@ -1,0 +1,32 @@
+# Cabeceras HTTP de seguridad — las sirve AWS Amplify en cada respuesta (Amplify lee ESTE archivo, no `_headers`).
+#
+# Verificar SIEMPRE por el receptor, no por el repo (navegador o curl contra https://alarizacademy.com).
+# Este PR es además la MEDICIÓN de cómo se publica el sitio: si tras fusionar aparecen las cabeceras,
+# el sitio está en Amplify (se sabe desde el 8-oct que se publica solo desde `main`, pero no con qué servicio).
+#
+# Notas de diseño (2026-10-08, molde: wasvelt-site):
+#  - HSTS sin `includeSubDomains` ni `preload`: no hay subdominios verificados y `preload` es irreversible.
+#  - El CSP se estrena en Report-Only: reporta en consola pero NO bloquea. Se observa en producción
+#    y sólo entonces se pasa a vinculante renombrando la clave a `Content-Security-Policy`.
+#  - Inventario de terceros medido el 2026-10-08 sobre dist/:
+#      form-action  https://formspree.io  (formulario de /contact, POST normal, sin JavaScript)
+#      font-src     'self' — Poppins autohospedada como archivos /_astro/*.woff2 (no embebida en data:)
+#      sin <script>, sin <iframe>, sin <link href> a terceros; hay atributos style="" ⇒ style-src 'unsafe-inline'
+
+customHeaders:
+  - pattern: '**'
+    headers:
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000'
+      - key: 'X-Content-Type-Options'
+        value: 'nosniff'
+      - key: 'X-Frame-Options'
+        value: 'SAMEORIGIN'
+      - key: 'Referrer-Policy'
+        value: 'strict-origin-when-cross-origin'
+      - key: 'Cross-Origin-Opener-Policy'
+        value: 'same-origin'
+      - key: 'Permissions-Policy'
+        value: 'accelerometer=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), interest-cohort=()'
+      - key: 'Content-Security-Policy-Report-Only'
+        value: "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'self' https://formspree.io"
