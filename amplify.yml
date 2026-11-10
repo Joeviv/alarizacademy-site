@@ -1,0 +1,22 @@
+# Receta de compilación de AWS Amplify (la lee Amplify en cada publicación; manda sobre la de la consola).
+#
+# Por qué vive en el repo: Astro 7.4 exige Node >= 22.23.4 y se niega a arrancar con uno menor.
+# Sin este archivo el sitio compilaba con el Node por defecto de la imagen de Amplify.
+# Se fija Node 24, igual que en los demás sitios.
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install 24
+        - nvm use 24
+        - node --version
+        - npm ci
+        - npm audit --audit-level=high || true
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
